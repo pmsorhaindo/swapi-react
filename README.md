@@ -12,6 +12,7 @@ Improve the styling and split css between appropriate files. Handle overflow of 
 
 ## Available Scripts
 
+Before running any commands ensure you are running the required version of node by running `nvm use` or referencing the .nvmrc file and installing that version.
 In the project directory, you can run:
 
 ### `npm install`
