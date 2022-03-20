@@ -1,8 +1,22 @@
 body {
     background-color: black;
-    color: white
 }
 
 .app {
     text-align: center;
+}
+
+.app_header {
+    color: yellow;
+}
+
+.film_header,
+.character_header {
+    color: white;
+}
+
+.loading {
+    color: yellow;
+    font-weight: bold;
+    margin: 20px 0;
 }
