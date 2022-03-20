@@ -102,6 +102,20 @@ div.react-select__option--is-selected {
     background-color: yellow;
 }
 
+.plasma {
+    margin: 40px 12px;
+    height: 10px;
+    background: rgb(229, 17, 21);
+    background: linear-gradient(
+        to bottom,
+        rgba(229, 17, 21, 1) 0%,
+        rgba(254, 254, 254, 1) 47%,
+        rgba(229, 17, 21, 1) 100%
+    );
+    filter: blur(1px);
+    border-radius: 25px
+}
+
 .character_container {
     background-color: black;
     border-radius: 25px;
