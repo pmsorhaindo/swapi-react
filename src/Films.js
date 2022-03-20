@@ -1,5 +1,5 @@
-import React from 'react';
-import { useParams, useNavigate, Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, useNavigate, useLocation, Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import './App.css';
@@ -7,6 +7,14 @@ import './App.css';
 function Film({ movies }) {
     const { filmId } = useParams();
     const navigate = useNavigate();
+
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        if (filmId !== undefined && !pathname.includes('chars')) {
+            navigate(`/films/${filmId}/chars`);
+        }
+    }, []);
 
     if (movies.length === 0) return <div className="loading">Loading Film Data...</div>;
 

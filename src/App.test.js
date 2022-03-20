@@ -136,3 +136,18 @@ test('when film and character selected populate character table', async () => {
     });
 });
 
+test('can share page directly to a selected film', async () => {
+    renderWithRouter(<App />, { route: '/films/1' });
+    await waitFor(() => {
+        expect(screen.getByText(/The Phantom Menace/)).toBeInTheDocument();
+    });
+});
+
+test('can share page directly to a selected film and character', async () => {
+    renderWithRouter(<App />, { route: '/films/5/chars/1' });
+    await waitFor(() => {
+        expect(screen.getByText(/The Empire Strikes Back/)).toBeInTheDocument();
+        expect(screen.getByText(/19BBY/)).toBeInTheDocument();
+        expect(screen.getByText(/Tatooine/)).toBeInTheDocument();
+    });
+});
