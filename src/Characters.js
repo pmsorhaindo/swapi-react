@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams, useNavigate } from 'react-router-dom';
+import Character from './Character';
 import Select from 'react-select';
 import { usePrevious, getCharacterId } from './utils';
 import './App.css';
@@ -9,9 +10,26 @@ function Characters({ movies }) {
     const navigate = useNavigate();
     const { filmId = '', charId = '' } = useParams();
     const previousFilmId = usePrevious(filmId);
+    const previousCharId = usePrevious(charId);
     const [currentCharacters, setCharacters] = useState([]);
+    const [fetchedCharacter, setFetchedCharacter] = useState(undefined);
 
     useEffect(() => {
+        const setSelectedCharacter = async (characterId) => {
+            let characterData = fetchedCharacter;
+            setFetchedCharacter(characterData);
+            if ((characterId !== '' || previousCharId !== charId) && movies.length > 0 && currentCharacters.length > 0) {
+                try {
+                    const response = await fetch(`https://swapi.dev/api/people/${characterId}/`);
+                    if (!response.ok) throw new Error(response.statusText);
+                    characterData = await response.json();
+                } catch (err) {
+                    navigate('/apierror');
+                    console.log(err);
+                }
+            }
+            setFetchedCharacter(characterData);
+        };
         const setSelectedMovie = async (episodeId) => {
             let foundMovie = movies.find((movie) => parseInt(movie.episodeId) === parseInt(episodeId));
             let characters = filmId !== previousFilmId ? [] : currentCharacters;
@@ -25,6 +43,11 @@ function Characters({ movies }) {
 
         try {
             if (filmId !== previousFilmId) setSelectedMovie(filmId);
+            if (charId !== '') {
+                setSelectedCharacter(charId);
+            } else {
+                setSelectedCharacter('');
+            }
         } catch (error) {
             navigate('/notfound');
             console.error(error);
@@ -64,9 +87,12 @@ function Characters({ movies }) {
                 options={options}
                 defaultValue={defaultValue}
                 onChange={({ value }) => {
+                    setFetchedCharacter(undefined);
                     navigate(`/films/${filmId}/chars/${value}`);
                 }}
             />
+            <hr className="plasma" />
+            <Character {...fetchedCharacter} isLoading={fetchedCharacter === undefined && charId !== ''} />
         </>
     );
 }

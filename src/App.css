@@ -3,6 +3,8 @@ body {
 }
 
 .app {
+    margin: 0 auto;
+    max-width: 50vw;
     text-align: center;
 }
 
@@ -14,9 +16,45 @@ body {
 .character_header {
     color: white;
 }
+.character_header--placeholder {
+    color: black;
+}
+
 
 .loading {
     color: yellow;
     font-weight: bold;
     margin: 20px 0;
+}
+
+.character_container {
+    background-color: black;
+    border-radius: 25px;
+    border: 8px solid white;
+    color: white;
+    padding: 0 25px 25px;
+}
+
+.character_data {
+    display: grid;
+    gap: 10px 20px;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+}
+
+.character_data > li {
+    background-color: black;
+    border-radius: 25px;
+    border: 4px solid yellow;
+    font-weight: bold;
+    margin: 2px;
+    overflow: hidden;
+    padding: 10px 25px;
+    text-align: left;
+    text-transform: capitalize;
+}
+
+.error {
+    color: yellow;
+    font-weight: bold;
 }
